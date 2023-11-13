@@ -121,7 +121,7 @@ function addNewSpot() {
 }
 
 
-setTimeout(init, 500);
+setTimeout(init, 1000);
 regionSearch.addEventListener("change", function(event){
     filter(regionSearch.value)
 });
