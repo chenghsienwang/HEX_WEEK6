@@ -4,7 +4,8 @@ axios.get('https://raw.githubusercontent.com/hexschool/js-training/main/travelAP
     for(let i=0; i<response.data.length; i++){
     data.push(response.data[i])
     }
-    console.log(data);
+    //等axios資料抓完先init一次把資料渲染上畫面
+    init();
   });
 
 
@@ -120,8 +121,6 @@ function addNewSpot() {
     init();
 }
 
-
-setTimeout(init, 1000);
 regionSearch.addEventListener("change", function(event){
     filter(regionSearch.value)
 });
