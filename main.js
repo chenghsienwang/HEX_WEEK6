@@ -82,13 +82,13 @@ function pieLabelFormat() {
                 ['台北', tempArr[1]],
                 ['高雄', tempArr[2]],
             ],
-          type : 'donut',
+            type: 'donut',
         },
         donut: {
-          title: "地區"
+            title: "地區"
         }
-      });
-    };
+    });
+};
 
 
 
@@ -141,16 +141,18 @@ function filter(area) {
 }
 //新增景點function
 function addNewSpot() {
-    data.push({
-        "name": ticketName.value,
-        "imgUrl": ticketImgUrl.value,
-        "area": ticketRegion.value,
-        "description": ticketDescription.value,
-        "group": ticketNum.value,
-        "price": ticketPrice.value,
-        "rate": ticketRate.value
-    })
-    init();
+    if (ticketName.value != "") {
+        data.push({
+            "name": ticketName.value,
+            "imgUrl": ticketImgUrl.value,
+            "area": ticketRegion.value,
+            "description": ticketDescription.value,
+            "group": ticketNum.value,
+            "price": ticketPrice.value,
+            "rate": ticketRate.value
+        })
+        init();
+    }
 }
 
 regionSearch.addEventListener("change", function (event) {
