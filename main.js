@@ -141,7 +141,7 @@ function filter(area) {
 }
 //新增景點function
 function addNewSpot() {
-    if (ticketName.value != "") {
+    if (ticketName.value != "" && ticketRegion.value!= "") {
         data.push({
             "name": ticketName.value,
             "imgUrl": ticketImgUrl.value,
@@ -152,6 +152,9 @@ function addNewSpot() {
             "rate": ticketRate.value
         })
         init();
+    }
+    else{
+        alert("請輸入套票資訊");
     }
 }
 
