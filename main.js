@@ -1,14 +1,13 @@
 let data = [];
 axios.get('https://raw.githubusercontent.com/hexschool/js-training/main/travelAPI-lv1.json')
-  .then(function (response) {
-    for(let i=0; i<response.data.length; i++){
-    data.push(response.data[i])
-    }
-    //等axios資料抓完先init一次把資料渲染上畫面
-    init();
-  });
-
-
+    .then(function (response) {
+        for (let i = 0; i < response.data.length; i++) {
+            data.push(response.data[i])
+        }
+        //等axios資料抓完先init一次把資料渲染上畫面
+        init();
+        pieLabelFormat()
+    });
 
 // 抓取HTML元素的變數專區
 const ticketCardArea = document.querySelector(".ticketCard-area");
@@ -60,13 +59,46 @@ function init() {
     ticketCardArea.innerHTML = str
     searchResultText.innerHTML = `本次搜尋共 ${data.length} 筆資料`
 }
+
+// 統計北中南筆數並產生圓餅圖的function
+function pieLabelFormat() {
+    let tempArr = [0, 0, 0];
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].area == "台北") {
+            tempArr[0] += 1;
+        }
+        else if (data[i].area == "台中") {
+            tempArr[1] += 1;
+        }
+        else if (data[i].area == "高雄") {
+            tempArr[2] += 1;
+        }
+    }
+    const chart = c3.generate({
+        bindto: "#chart",
+        data: {
+            columns: [
+                ['台中', tempArr[0]],
+                ['台北', tempArr[1]],
+                ['高雄', tempArr[2]],
+            ],
+          type : 'donut',
+        },
+        donut: {
+          title: "地區"
+        }
+      });
+    };
+
+
+
 //篩選function
 function filter(area) {
     //搜尋全部地區就直接初始化。
-    if(area == "" || area == "地區搜尋"){
+    if (area == "" || area == "地區搜尋") {
         init();
     }
-    else{
+    else {
         let str = "";
         let temp = 0;
         for (let i = 0; i < data.length; i++) {
@@ -121,9 +153,11 @@ function addNewSpot() {
     init();
 }
 
-regionSearch.addEventListener("change", function(event){
+regionSearch.addEventListener("change", function (event) {
     filter(regionSearch.value)
 });
-addTicketBtn.addEventListener("click", function(event){
+addTicketBtn.addEventListener("click", function (event) {
     addNewSpot()
+    pieLabelFormat()
 });
+
